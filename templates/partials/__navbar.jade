@@ -1,0 +1,18 @@
+nav.navbar.navbar-inverse
+    div.container-fluid
+      div.navbar-header
+        a.navbar-brand(href='https://github.com/zbay') Zbay Industries
+      ul.nav.navbar-nav.navbar-left
+        li
+          a(href='https://clickpic-zbay.c9users.io') Recent Pics
+      ul.nav.navbar-nav.navbar-right
+        if !loggedIn
+            li
+                a(href="/auth/twitter") Login with Twitter
+        else
+            li
+                a(href="/myPics") My Pics
+            li
+                a(href="/add") Add
+            li
+                a(href="/logout") Log Out
