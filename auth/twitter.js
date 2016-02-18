@@ -1,8 +1,8 @@
+var mongoose = require("mongoose");
+var User = require('../dbmodels/user.js');
+User = mongoose.model("User");
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
-
-var User = require('../dbmodels/user');
-
 var init = require('./init');
 
 passport.use(new TwitterStrategy({
@@ -25,7 +25,7 @@ passport.use(new TwitterStrategy({
       upsert: true
     };
 
-    // update the user if s/he exists or add a new user
+    // update the user if exists or add a new user
     User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
       if(err) {
         return done(err);

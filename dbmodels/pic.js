@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var Pic = new Schema({
   userID: Schema.ObjectId,
+  userName: String,
   title: String,
-  someID: String,
   url: String
 });
 

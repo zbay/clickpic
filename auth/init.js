@@ -1,5 +1,7 @@
+var mongoose = require("mongoose");
 var passport = require('passport');
-var User = require('../dbmodels/user');
+var User = require('../dbmodels/user.js');
+User = mongoose.model("User");
 
 module.exports = function() {
 

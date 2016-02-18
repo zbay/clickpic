@@ -4,7 +4,28 @@ var dotenv = require("dotenv");
 var mongoose = require("mongoose");
 var Pic = require("../dbmodels/pic.js");
 Pic = mongoose.model("Pic");
-var async = require('async');
+
+var passportTwitter = require('../auth/twitter');
+
+app.get('/auth/twitter', passportTwitter.authenticate('twitter'));
+
+app.get('/auth/twitter/return',
+  passportTwitter.authenticate('twitter', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication
+    req.session.isLoggedIn = true;
+    req.session.userID = req.user._id;
+    req.session.userName = req.user.name;
+    res.redirect("/recent");
+    //res.json(req.user);
+  });
+
+app.get('/logout', function(req, res) {
+        req.session.isLoggedIn = false;
+        req.session.userID = null;
+        req.logout();
+        res.redirect('/');
+});
 
     app.get("/", function(req, res){
             res.redirect("/recent");
@@ -16,18 +37,25 @@ var async = require('async');
         allPics.push(doc);
       });
       picStream.on("end", function(){
-         res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: allPics});
+         res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: allPics, canDelete: false});
       });
     });
     app.get("/myPics", function(req, res){
-      var myPics = [];
-      var picStream = Pic.find({"_id": req.session.userID}).limit(500).stream();
-      picStream.on("data", function(doc){
+      if(req.session.isLoggedIn){
+        var myPics = [];
+        var picStream = Pic.find({"userID": req.session.userID}).limit(500).stream();
+        picStream.on("data", function(doc){
+          //console.log(doc);
         myPics.push(doc);
       });
       picStream.on("end", function(){
-         res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: myPics});
-      });
+        console.log(myPics);
+         res.render("showPics", {loggedIn: true, pics: myPics, canDelete: true});
+      }); 
+      }
+      else{
+        res.redirect("/recent");
+      }
     });
     app.get("/add", function(req, res){
       if(req.session.isLoggedIn){
@@ -39,33 +67,31 @@ var async = require('async');
     });
     app.post("/newPic", function(req, res){
       if(req.session.isLoggedIn){
-        var newPic = new Pic({"title": req.body.title, "url": req.body.url});
+        var newPic = new Pic({"title": req.body.title, "url": req.body.url, "userID": req.session.userID, "userName": req.session.userName});
         newPic.save();
         res.send({});
       }
     });
-    
-    
-    
-var passportTwitter = require('../auth/twitter');
-
-app.get('/auth/twitter', passportTwitter.authenticate('twitter'));
-
-app.get('/auth/twitter/return',
-  passportTwitter.authenticate('twitter', { failureRedirect: '/' }),
-  function(req, res) {
-    // Successful authentication
-    req.session.isLoggedIn = true;
-    req.session.userID = req.user._id;
-    res.redirect("/");
-    //res.json(req.user);
-  });
-
-app.get('/logout', function(req, res) {
-        req.session.isLoggedIn = false;
-        req.session.userID = null;
-        req.logout();
-        res.redirect('/');
-});
-
+    app.post("/deletePic", function(req, res){
+      if(req.session.isLoggedIn){
+        Pic.remove({"_id": req.body.deleteID, "userID": req.session.userID}, function(){
+          res.send({});
+        });
+      }
+    });
+    app.get("/user/:id", function(req, res){
+          var theirPics = [];
+          var picStream = Pic.find({"userID": req.params.id}).limit(500).stream();
+          picStream.on("data", function(doc){
+          theirPics.push(doc);
+        });
+        picStream.on("end", function(){
+          if(req.params.userID == req.session.userID){
+          res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: theirPics, canDelete: true}); 
+          }
+          else{
+           res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: theirPics, canDelete: false});    
+          }
+        }); 
+    });
 }

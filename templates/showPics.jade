@@ -1,24 +1,23 @@
 include ./partials/__header.jade
 include ./partials/__navbar.jade
+div#deletePicSuccess(style="display:none;") Picture deleted!
 div#masonry-grid
     div.gutter-sizer
-    each pic in pics
-        div.grid-item
-            img.gridPic(src=pic.url, width="200")
-            div.caption= pic.title
+    if !canDelete
+        each pic in pics
+            div.grid-item
+                img.gridPic(src=pic.url, width="200")
+                div.caption= pic.title
+                div.poster
+                    a(href="/user/" + pic.userID)= pic.userName
+    else
+        each pic in pics
+            div.grid-item
+                img.gridPic(src=pic.url, width="200")
+                div.caption= pic.title
+                div.poster
+                    a(href="/user/" + pic.userID)= pic.userName
+                button.deleteButton(name="deleteID", value=pic._id) Delete
+        script(src="/static/js/ajax/deletePic.js")
 script(src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.js")
-script.
-    var $container = jQuery('#masonry-grid');
-    $container.masonry({
-    columnWidth: 250,
-    itemSelector: '.grid-item'
-    });
-    
-    $(window).load(function() { 
-    $("img").each(function(){ 
-      var image = $(this); 
-      if(image.context.naturalWidth == 0 || image.readyState == 'uninitialized'){  
-         $(image).attr("src", "/static/img/broken-link.png").attr("alt", "Broken link. No image retrieved.");
-      } 
-     }); 
-     });
+script(src="/static/js/masonryGrid.js")

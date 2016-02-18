@@ -12,7 +12,7 @@ var session = require('express-session');
 var dotenv = require('dotenv').load();
 var passport = require('passport');
 
-mongoose.connect('mongodb://localhost:27017/bar-rollcall', function (err, db)
+mongoose.connect('mongodb://localhost:27017/clickpic', function (err, db)
 //mongoose.connect(process.env.MONGOLAB_URI, function (err, db)
 {
  if (err) {
@@ -21,13 +21,6 @@ mongoose.connect('mongodb://localhost:27017/bar-rollcall', function (err, db)
       console.log('Successfully connected to MongoDB.');
 
 app.use('/static', express.static(__dirname + '/client'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
@@ -35,6 +28,12 @@ app.use(session({
   isLoggedIn: false,
   userID: null
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/templates');
