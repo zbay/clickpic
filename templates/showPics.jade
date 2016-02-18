@@ -1,0 +1,24 @@
+include ./partials/__header.jade
+include ./partials/__navbar.jade
+div#masonry-grid
+    div.gutter-sizer
+    each pic in pics
+        div.grid-item
+            img.gridPic(src=pic.url, width="200")
+            div.caption= pic.title
+script(src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.js")
+script.
+    var $container = jQuery('#masonry-grid');
+    $container.masonry({
+    columnWidth: 250,
+    itemSelector: '.grid-item'
+    });
+    
+    $(window).load(function() { 
+    $("img").each(function(){ 
+      var image = $(this); 
+      if(image.context.naturalWidth == 0 || image.readyState == 'uninitialized'){  
+         $(image).parent().unbind("error").hide();
+      } 
+     }); 
+     });

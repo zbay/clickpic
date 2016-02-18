@@ -20,7 +20,7 @@ mongoose.connect('mongodb://localhost:27017/bar-rollcall', function (err, db)
    } else {
       console.log('Successfully connected to MongoDB.');
 
-app.use('/static', express.static(__dirname + '/public'));
+app.use('/static', express.static(__dirname + '/client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true

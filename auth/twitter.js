@@ -2,6 +2,7 @@ var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 
 var User = require('../dbmodels/user');
+
 var init = require('./init');
 
 passport.use(new TwitterStrategy({

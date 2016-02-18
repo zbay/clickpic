@@ -1,0 +1,18 @@
+include ./partials/__header.jade
+include ./partials/__navbar.jade
+div#addPics
+    div#newPicError(style="display:none;") Make sure to fill out both the title and URL fields.
+    div#newPicSuccess(style="display:none;") Picture successfully posted!
+    h1 Add New Pic
+    label
+        | Title
+    br
+    input(type="text", name="title")
+    br
+    label
+        | URL
+    br
+    input(type="url", name="url")
+    br
+    button#newPicSubmit Post It
+script(src="/static/js/ajax/newPic.js")
