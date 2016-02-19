@@ -24,13 +24,10 @@ body { font-family: sans-serif; }
   clear: both;
 }
 
-.grid-sizer,
 .grid-item {
-  
-}
-
-.grid-item {
-  float: left;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
 }
 
 .grid-item img {
