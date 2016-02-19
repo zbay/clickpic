@@ -2,11 +2,9 @@ $("#newPicSubmit").on("click", function(){
     $("#newPicError").attr("style", "display:none");
     $("#newPicNonexistent").attr("style", "display:none");
     $("#newPicSuccess").attr("style", "display:none");
-    console.log($("[name=title]").val());
-    console.log($("[name=url]").val());
     
     if($("[name=title]").val().length > 0 && $("[name=url]").val().length > 0){
-        if(supportedFormat){
+        if(supportedFormat()){
                 $.ajax({
                 url: "/newPic",
                 method: "POST",
