@@ -1,10 +1,15 @@
-    var $container = jQuery('#masonry-grid');
-    $container.masonry({
-    columnWidth: 250,
-    itemSelector: '.grid-item'
-    });
-    
+var $grid = $('.grid').masonry({
+  itemSelector: '.grid-item',
+  percentPosition: true,
+  columnWidth: '.grid-sizer'
+});
+// after each image loads
+$grid.imagesLoaded().progress( function() {
+  $grid.masonry();
+});   
+
     $(window).load(function() { 
+        
     $("img").each(function(){ 
       var image = $(this); 
       if(image.context.naturalWidth == 0 || image.readyState == 'uninitialized'){  

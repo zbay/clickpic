@@ -1,23 +1,24 @@
 include ./partials/__header.jade
 include ./partials/__navbar.jade
 div#deletePicSuccess(style="display:none;") Picture deleted!
-div#masonry-grid
-    div.gutter-sizer
+div.grid
+    div.grid-sizer
     if !canDelete
         each pic in pics
             div.grid-item
                 img.gridPic(src=pic.url, width="200")
                 div.caption= pic.title
-                div.poster
+                div.poster Posted By: 
                     a(href="/user/" + pic.userID)= pic.userName
     else
         each pic in pics
             div.grid-item
                 img.gridPic(src=pic.url, width="200")
                 div.caption= pic.title
-                div.poster
+                div.poster Posted By: 
                     a(href="/user/" + pic.userID)= pic.userName
                 button.deleteButton(name="deleteID", value=pic._id) Delete
         script(src="/static/js/ajax/deletePic.js")
-script(src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.js")
+script(src="http://masonry.desandro.com/masonry.pkgd.js")
+script(src="http://imagesloaded.desandro.com/imagesloaded.pkgd.js")
 script(src="/static/js/masonryGrid.js")
