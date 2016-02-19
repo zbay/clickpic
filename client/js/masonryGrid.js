@@ -8,12 +8,8 @@ $grid.imagesLoaded().progress( function() {
   $grid.masonry();
 });   
 
-    $(window).load(function() { 
-        
-    $("img").each(function(){ 
-      var image = $(this); 
-      if(image.context.naturalWidth == 0 || image.readyState == 'uninitialized'){  
-         $(image).attr("src", "/static/img/broken-link.png").attr("alt", "Broken link. No image retrieved.");
-      } 
-     }); 
-     });
+$(document).ready(function() {
+    $("img").error(function(){
+        $(this).remove();
+    });
+});
