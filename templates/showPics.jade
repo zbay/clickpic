@@ -14,7 +14,7 @@ div.grid
                 img.gridPic(src=pic.url, width="200")
                 div.caption= pic.title
                 div.poster Posted By: 
-                    a(href="https://clickpic-zbay.c9users.io/user/" + pic.userID)= pic.userName
+                    a(href="https://pic-wall-zbay.herokuapp.com/user/" + pic.userID)= pic.userName
     else
         each pic in pics
             div.grid-item
@@ -22,7 +22,7 @@ div.grid
                 div.caption= pic.title
                 div.poster Posted By: 
                     //a(href="https://pic-wall-zbay.herokuapp.com/user/" + pic.userID)= pic.userName
-                    a(href="https://clickpic-zbay.c9users.io/user/" + pic.userID)= pic.userName
+                    a(href="https://pic-wall-zbay.herokuapp.com/user/" + pic.userID)= pic.userName
                 button.deleteButton(name="deleteID", value=pic._id) Delete
 script(src="/static/js/ajax/deletePic.js")
 script(src="http://masonry.desandro.com/masonry.pkgd.js")
