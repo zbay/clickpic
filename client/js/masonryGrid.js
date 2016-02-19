@@ -1,4 +1,4 @@
-$("body").on('error', "img", function () {
+$("img").on('error', function () {
      $(this).attr("src", "/static/img/broken-link.png");                                              
 });
 

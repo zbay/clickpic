@@ -1,8 +1,5 @@
 include ./partials/__header.jade
 include ./partials/__navbar.jade
-script(src="http://masonry.desandro.com/masonry.pkgd.js")
-script(src="http://imagesloaded.desandro.com/imagesloaded.pkgd.js")
-script(src="/static/js/masonryGrid.js")
 div#deletePicSuccess(style="display:none;") Picture deleted!
 if canDelete
     h1 My Pics
@@ -27,4 +24,7 @@ div.grid
                     //a(href="https://pic-wall-zbay.herokuapp.com/user/" + pic.userID)= pic.userName
                     a(href="https://pic-wall-zbay.herokuapp.com/user/" + pic.userID)= pic.userName
                 button.deleteButton(name="deleteID", value=pic._id) Delete
+script(src="http://masonry.desandro.com/masonry.pkgd.js")
+script(src="http://imagesloaded.desandro.com/imagesloaded.pkgd.js")
+script(src="/static/js/masonryGrid.js")
 script(src="/static/js/ajax/deletePic.js")
