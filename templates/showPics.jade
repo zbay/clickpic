@@ -3,7 +3,6 @@ include ./partials/__navbar.jade
 div#deletePicSuccess(style="display:none;") Picture deleted!
 if canDelete
     h1 My Pics
-    //h1 My Pics
 else
     if userName
         h1 #{userName}'s Pics
@@ -15,14 +14,14 @@ div.grid
                 img.gridPic(src=pic.url, width="200")
                 div.caption= pic.title
                 div.poster Posted By: 
-                    a(href="/user/" + pic.userID)= pic.userName
+                    a(href="https://pic-wall-zbay.herokuapp.com/user/" + pic.userID)= pic.userName
     else
         each pic in pics
             div.grid-item
                 img.gridPic(src=pic.url, width="200")
                 div.caption= pic.title
                 div.poster Posted By: 
-                    a(href="/user/" + pic.userID)= pic.userName
+                    a(href="https://pic-wall-zbay.herokuapp.com/user/" + pic.userID)= pic.userName
                 button.deleteButton(name="deleteID", value=pic._id) Delete
 script(src="/static/js/ajax/deletePic.js")
 script(src="http://masonry.desandro.com/masonry.pkgd.js")
