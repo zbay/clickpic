@@ -37,3 +37,14 @@ body { font-family: sans-serif; }
   display: block;
   max-width: 100%;
 }
+#deletePicSuccess, #newPicSuccess{
+  color:green;
+  text-align:center;
+  font-weight:bold;
+}
+#newPicNonexistent, #newPicError{
+  color:red;
+  text-align:center;
+  font-weight:bold;
+}
+

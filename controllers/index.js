@@ -17,6 +17,7 @@ app.get('/auth/twitter/return',
     // Successful authentication
     req.session.isLoggedIn = true;
     req.session.userID = req.user._id;
+    req.session.userName = req.user.name;
     res.redirect("/recent");
     //res.json(req.user);
   });
@@ -81,16 +82,16 @@ app.get('/logout', function(req, res) {
     app.get("/user/:userID", function(req, res){
           var theirPics = [];
           var picStream = Pic.find({"userID": req.params.userID}).limit(500).stream();
-          picStream.on("data", function(doc){
-          theirPics.push(doc);
+          picStream.on("data", function(datum){
+          theirPics.push(datum);
         });
         picStream.on("end", function(){
-          User.find({"_id": req.params.userID}, function(){
+          User.findOne({"_id": req.params.userID}, function(err, doc){
             if(req.params.userID == req.session.userID){
-            res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: theirPics, canDelete: true}); 
+            res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: theirPics, userName: doc.name, canDelete: true}); 
             }
             else{
-            res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: theirPics, userName: req.session.userName, canDelete: false});    
+            res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: theirPics, userName: doc.name, canDelete: false});    
             }
           });
         }); 
