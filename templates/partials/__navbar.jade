@@ -1,18 +1,18 @@
 nav.navbar.navbar-inverse
     div.container-fluid
       div.navbar-header
-        a.navbar-brand(href='/recent') Pic Wall
+        a.navbar-brand(href='https://pic-wall-zbay.herokuapp.com/recent') Pic Wall
       ul.nav.navbar-nav.navbar-left
         li
-          a(href="/recent") Recent Pics
+          a(href="https://pic-wall-zbay.herokuapp.com/recent") Recent Pics
       ul.nav.navbar-nav.navbar-right
         if !loggedIn
             li
-                a(href="/auth/twitter") Login with Twitter
+                a(href="https://pic-wall-zbay.herokuapp.com/auth/twitter") Login with Twitter
         else
             li
-                a(href="/myPics") My Pics
+                a(href="https://pic-wall-zbay.herokuapp.com/myPics") My Pics
             li
-                a(href="/add") Add
+                a(href="https://pic-wall-zbay.herokuapp.com/add") Add
             li
-                a(href="/logout") Log Out
+                a(href="https://pic-wall-zbay.herokuapp.com/logout") Log Out
