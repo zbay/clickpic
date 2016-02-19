@@ -1,4 +1,4 @@
-$("img").on('error', function () {
+$("body").on('error', "img", function () {
      $(this).attr("src", "/static/img/broken-link.png");                                              
 });
 
@@ -11,9 +11,3 @@ var $grid = $('.grid').masonry({
 $grid.imagesLoaded().progress( function() {
   $grid.masonry();
 });   
-
-$(document).ready(function() {
-    $("img").error(function(){
-        $(this).remove();
-    });
-});
