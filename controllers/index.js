@@ -39,7 +39,7 @@ app.get('/logout', function(req, res) {
         allPics.push(doc);
       });
       picStream.on("end", function(){
-         res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: allPics, canDelete: false, home:true});
+         res.render("showPics", {loggedIn: req.session.isLoggedIn, pics: allPics, canDelete: false});
       });
     });
     app.get("/myPics", function(req, res){
