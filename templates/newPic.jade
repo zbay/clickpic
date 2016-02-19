@@ -4,16 +4,18 @@ div#addPics
     div#newPicError(style="display:none;") Make sure to fill out both the title and URL fields.
     div#newPicSuccess(style="display:none;") Picture successfully posted!
     div#newPicNonexistent(style="display:none") That image URL is invalid. Try again.
-    h1 Add New Pic
+    h1 Add New Pic (HTTPS links only)
     label
         | Title
     br
     input(type="text", name="title")
     br
+    br
     label
         | URL
     br
     input(type="url", name="url")
+    br
     br
     button#newPicSubmit Post It
 script(src="/static/js/ajax/newPic.js")

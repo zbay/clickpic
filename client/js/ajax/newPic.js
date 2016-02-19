@@ -7,8 +7,12 @@ $("#newPicSubmit").on("click", function(){
     
     if($("[name=title]").val().length > 0 && $("[name=url]").val().length > 0){
         $.ajax({
-            url: $("[name=url]").val(),
+            url: $("[name=url]").val().replace("http://", "https://"),
             method: "HEAD",
+            crossDomain: true,
+            beforeSend: function(xhr){
+                xhr.withCredentials = true;
+            },
             success: function(){
                 $.ajax({
                 url: "/newPic",

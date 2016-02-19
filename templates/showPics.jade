@@ -1,6 +1,12 @@
 include ./partials/__header.jade
 include ./partials/__navbar.jade
 div#deletePicSuccess(style="display:none;") Picture deleted!
+if canDelete
+    h1 My Pics
+    //h1 My Pics
+else
+    if userName
+        h1 #{userName}'s Pics
 div.grid
     div.grid-sizer
     if !canDelete
